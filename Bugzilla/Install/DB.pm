@@ -4404,10 +4404,7 @@ sub _copy_valid_emails_to_profiles_emails {
     }
 
     # Check if 'email' column exists in 'profiles'
-    my $columns = $dbh->selectcol_arrayref(
-        "SHOW COLUMNS FROM profiles LIKE 'email'"
-    );
-    my $has_email_column = scalar(@$columns) > 0;
+    my $has_email_column = $dbh->bz_column_info('profiles', 'email') ? 1 : 0;
 
     # Build SELECT statement dynamically
     my $select_sql = 'SELECT userid, login_name';
