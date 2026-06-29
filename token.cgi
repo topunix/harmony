@@ -105,7 +105,7 @@ if ($action eq 'reqpw') {
   validate_email_syntax($email)
      || ThrowUserError('illegal_email_address', {addr => $email});
 
-  my $user_account = Bugzilla::User->new({ name => $email });
+  $user_account = Bugzilla::User->new({ name => $email });
 
   unless ($user_account) {
     ThrowUserError("invalid_email", {email => $email});
