@@ -44,12 +44,14 @@ On Debian and Ubuntu, enable the site and reload Apache:
 
 On Fedora and Red Hat, reload with ``sudo systemctl reload httpd``.
 
-If Apache terminates TLS, add this line inside the ``<VirtualHost *:443>``
-block so Bugzilla generates ``https`` URLs:
+If Apache terminates TLS, add this header to your TLS virtual host so
+Bugzilla generates ``https`` URLs:
 
 .. code-block:: apache
 
-    RequestHeader set X-Forwarded-Proto "https"
+    <VirtualHost *:443>
+        RequestHeader set X-Forwarded-Proto "https"
+    </VirtualHost>
 
 .. note::
     Bugzilla listens on port 3001 by default. Set the ``PORT`` environment
